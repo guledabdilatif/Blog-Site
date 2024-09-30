@@ -13,8 +13,20 @@
         </thead>
         <tbody>
             <?php
+            session_start();
+            if (!isset($_SESSION['uname']) || !isset($_SESSION['upass'])) {
+                header("Location: index.php");
+                exit();
+            }
+            $username = $_SESSION['uname'];
+            $password = $_SESSION['upass'];
             include("../connect.php");
-            $query = "SELECT * FROM posts";
+            if ($username != 'admin' && $password != 'admin') {
+                $query = "SELECT * FROM `posts` WHERE username='$username' AND password='$password'";
+              } else {
+                $query = "SELECT * FROM `posts`";
+              }
+          
             $query_run = mysqli_query($connection, $query);
             if (mysqli_num_rows($query_run) > 0) {
                 foreach ($query_run as $row) {
@@ -25,9 +37,9 @@
                         <td scope="row"><?php echo $row['summary'] ?></td>
                         <td scope="row"><?php echo $row['description'] ?></td>
                         <td class="d-flex">
-                            <a href="view.php?id=<?php echo $row['id']?>" class="btn btn-success me-1 btn-sm">view</a>
-                            <a href="edit.php?id=<?php echo $row['id']?>" class="btn btn-primary me-1 btn-sm">edit</a>
-                            <a href="delete.php?id=<?php echo $row['id']?>" class="btn btn-danger btn-sm">delete</a>
+                            <a href="view.php?id=<?php echo $row['id'] ?>" class="btn btn-success me-1 btn-sm">view</a>
+                            <a href="edit.php?id=<?php echo $row['id'] ?>" class="btn btn-primary me-1 btn-sm">edit</a>
+                            <a href="delete.php?id=<?php echo $row['id'] ?>" class="btn btn-danger btn-sm">delete</a>
                         </td>
 
                     </tr>

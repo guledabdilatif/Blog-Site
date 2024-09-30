@@ -13,5 +13,5 @@
 
     <div class="row container">
         <div class="col-md-3 bg-dark mt-5 vh-100">
-            <h1 class="bg-primary p-2"><a href="" class="text-light text-decoration-none">Dashboard</a></h1>
+            <h1 class="bg-primary p-2"><a href="./dashboard.php" class="text-light text-decoration-none">Dashboard</a></h1>
         </div>

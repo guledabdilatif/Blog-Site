@@ -41,7 +41,10 @@ if (isset($_POST['login'])) {
     $query_run = mysqli_query($connection, $query);
 
     if (mysqli_num_rows($query_run) > 0) {
-       header("Location: index.php");
+        session_start();
+        $_SESSION['uname'] = $username;
+        $_SESSION['upass'] = $password;
+        header("Location: index.php");
     } else {
         header("Location: ../index.php");
     }
