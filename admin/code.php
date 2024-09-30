@@ -34,6 +34,7 @@ if (isset($_POST['update'])) {
 
 }
 if (isset($_POST['login'])) {
+    session_start();
     $username = mysqli_real_escape_string($connection, $_POST['username']);
     $password = mysqli_real_escape_string($connection, $_POST['password']);
 
@@ -41,12 +42,14 @@ if (isset($_POST['login'])) {
     $query_run = mysqli_query($connection, $query);
 
     if (mysqli_num_rows($query_run) > 0) {
-        session_start();
+       
         $_SESSION['uname'] = $username;
         $_SESSION['upass'] = $password;
-        header("Location: index.php");
+        header("Location: dashboard.php");
     } else {
         header("Location: ../index.php");
+        $_SESSION['login_error'] = "Incorrect username or password. Please try again."; // Set error message in session
+
     }
 
 }

@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+// Check if the user is logged in by verifying the session
+if (!isset($_SESSION['uname'])) {
+    // If not logged in, redirect to login page
+    header("Location: ../index.php");
+    exit();
+}
+
+// The rest of the code for the index page goes here...
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -52,13 +65,25 @@
     </head>
 
 <body>
+    <?php 
+    if (isset($_POST['logout'])) {
+        session_unset();
+    
+        // Destroy the session
+        session_destroy();
+        header('Location: ../index.php');
+    }
+    ?>
     <div class="m-3">
+        <form action="" method="POST" class="float-end">
+            <button name="logout" class="btn btn-danger">Logout</button>
+        </form>
         <div class="row">
             <div class="col-md-3 bg-dark p-2">
              <div class="website">
              <h1>Website</h1>
              <a href="">Add Post</a>
-             <a href="">View Posts</a>
+             <a href="">Users</a>
              <a href="">View Users</a>
              
              </div>
@@ -73,7 +98,7 @@
                     </a>
                     <a href="index.php">
                         <div>
-                            <p>Profile</p>
+                            <p>Users</p>
                         </div>
                     </a>
                     <a href="">
